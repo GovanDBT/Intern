@@ -5,8 +5,8 @@
 
     // checks to see if the user is already logged in, if so redirect them to the home page
     session_start();
-    if(isset($_SESSION['userId']))
-        header("Location: index.php");
+    if(isset($_SESSION['userId']) && $_POST['status'] == 'organisation')
+        header("Location: org.php");
 
  /** LOGIN FORM */
     // checks to see if the user clicked the login button
@@ -17,10 +17,10 @@
         $password = $_POST['password'];
 
         // makes sure the required fields are entered
-        if ($user != "" && $password != "" && $status = "student"){
-            // selects and goes through all the emails in the database
-            $select = "SELECT * FROM Student WHERE studentId = '{$user}'";
-            // query the database to see if the email already exists
+        if ($user != "" && $password != "" && $status = "organization"){
+            // selects and goes through all the organization names in the database
+            $select = "SELECT * FROM Org_account WHERE name = '{$user}'";
+            // query the database to see if the name already exists
             $query = mysqli_query($connection, $select);
             if(mysqli_num_rows($query) == 1){
                 // gets the records from the query
@@ -29,20 +29,20 @@
                 // compares the passwords to make sure they match
                 if($password === $record['password']){
                     // makes sure the user has activated their account
-                    if($record['status'] == 1){
+                    if($record['account_status'] == 1){
                         // update the last_login tracker
                         $last_login = time();
-                        $update = "UPDATE users SET last_login ='{$last_login}'";
+                        $update = "UPDATE Org_account SET last_login ='{$last_login}'";
                         $query = mysqli_query($connection, $update);
 
                         /** USER CAN LOGIN */
 
-                        $_SESSION['email'] = $record['email'];
+                        $_SESSION['userId'] = $record['name'];
 
                         $success = true;
 
                         // redirects user to the home page
-                        header("Location: index.php");
+                        header("Location: org.php");
                     }
                     else
                         $error_msg = "Please activate your account before you Login!";
@@ -85,10 +85,10 @@
             <!--links to other pages-->
             <ul class="menu-list">
                 <li><a href="../index.html"><i class="fa-solid fa-home"></i> Dashboard</a></li>
-                <li class="highlight"><a href="pages/login.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
-                <li><a href="pages/register.html"><i class="fa-solid fa-address-card"></i> Register</a></li>
-                <li><a href="pages/about.html"><i class="fa-solid fa-circle-info"></i> About</a></li>
-                <li><a href="pages/contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+                <li class="highlight"><a href="login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+                <li><a href="register.php"><i class="fa-solid fa-address-card"></i> Register</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a></li>
+                <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
             </ul>
             <hr>
             <!--shows the number of registered students and companies-->
@@ -111,11 +111,11 @@
             <form action="login.php" method="post">
                 <select name="status">
                     <option value="student">student</option>
-                    <option value="organization">organization</option>
+                    <option value="organization">organisation</option>
                     <option value="supervisor">supervisor</option>
                 </select>
                 <input type="text" name="userId" placeholder="ID number or name">
-                <input type="password" name="pass" placeholder="password">
+                <input type="password" name="password" placeholder="password">
                 <br>
                 <input type="submit" name="login" value="login">
             </form>

@@ -202,3 +202,7 @@ table {
     margin: 10px;
     border-radius: 10px;
 }
+
+form {
+    font-size: 2rem;
+}
