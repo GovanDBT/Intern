@@ -1,0 +1,204 @@
+/* Defining the color palette of the website*/
+:root {
+    --dominant-color: #212a3e;
+    --secondary-color: #394867;
+    --accent-color: #a41c22;
+    --accent-hover: #1baa6c;
+    --black-color: #474747;
+    --white-text: #fff;
+    --white-text--hover: #d2d0db;
+}
+
+/* changing the color of text when selected */
+::selection {
+    background-color: var(--accent-color);
+    color: var(--white-text);
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+html {
+    /* 62.5% of 16px = 10px*/
+    font-size: 62.5%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Property for every link*/
+a:visited, a:link {
+    color: var(--white-text);
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #d3dae7;
+    opacity: 0.6;
+    transition: ease 0.3s;
+}
+
+/*Property for the line*/
+hr {
+    border: 1px solid var(--secondary-color);
+}
+
+.interface {
+}
+
+/*styles the entire side menu*/
+.menu {
+    background: var(--dominant-color);
+    height: 100vh;
+    position: fixed;
+    width: 20vw;
+    left: 0;
+    top: 0;
+}
+
+/*styles the side menu header*/
+.header {
+    width: 100%;
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+
+/*styles the UB logo*/
+.logo {
+    width: 6rem;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 0.7rem;
+    position: relative;
+    left: 0;
+    align-self: self-start;
+}
+
+/*styles the title in the menu header*/
+.menu-title {
+    font-weight: bolder;
+    font-family: poppins;
+    color: var(--white-text);
+    font-size: 2rem;
+    display: inline-block;
+    margin: 0;
+    align-self: center;
+}
+
+/*styles the menu lists*/
+.menu-list {
+    list-style: none;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--white-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-list li {
+    margin-bottom: 3.4rem;
+}
+
+/*styles the menu lists of the page were currently in*/
+.menu-list .highlight {
+    background-color: #394867;
+    padding: 0.8rem 2.4rem;
+    border-radius: 20px;
+}
+
+/*styles the section that counts number of registered students and organizations*/
+.count h3 {
+    background: #fff;
+    color: var(--dominant-color);
+    font-weight: bolder;
+    font-size: 2rem;
+    border-radius: 50%;
+    padding: 0.8rem;
+    width: fit-content;
+    display: inline-block;
+    margin: 2rem 2rem;
+}
+
+.count p {
+    color: var(--white-text);
+    font-weight: bolder;
+    font-size: 1.4rem;
+    display: inline-block;
+}
+
+footer {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+}
+
+footer p {
+    text-align: center;
+    color: var(--white-text);
+    font-size: 1.5rem;
+    opacity: 0.8;
+}
+
+.main-content {
+    width: 80vw;
+    margin-left: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.catalog {
+    border-radius: 20px;
+    background-color: #d2daeb;
+    width: 90%;
+    height: 85vh;
+    padding: 1.5rem;
+}
+
+/*card containing internships*/
+.card {
+    width: 280px;
+    background: #fff;
+    border-radius: 9%;
+    text-align: center;
+}
+
+.card-header {
+    color: var(--white-text);
+    font-family: poppins;
+    font-weight: bolder;
+    font-size: 1.3rem;
+    background-color: var(--dominant-color);
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    padding: 2px 0;
+}
+
+table, th, td {
+    border: 1px solid var(--dominant-color);
+    border-collapse: collapse;
+    padding: 1rem 2.9rem;
+    margin: 0.8rem auto;
+    font-size: 1.4rem;
+}
+
+table {
+    width: auto;
+}
+
+.card-body p {
+    background: var(--accent-color);
+    font-size: 2rem;
+    font-weight: bolder;
+    padding: 1rem 2rem;
+    display: inline-block;
+    margin: 10px;
+    border-radius: 10px;
+}
