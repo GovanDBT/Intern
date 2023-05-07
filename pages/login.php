@@ -5,15 +5,15 @@
 
     // checks to see if the user is already logged in, if so redirect them to the home page
     session_start();
-    if(isset($_SESSION['userId']) && $_POST['status'] == 'organisation')
+    if(isset($_SESSION['name']))
         header("Location: org.php");
 
- /** LOGIN FORM */
+    /** LOGIN FORM */
     // checks to see if the user clicked the login button
     if(isset($_POST['login'])){
         // gets the form data for processing
         $status = $_POST['status'];
-        $user = $_POST['userId'];
+        $user = $_POST['name'];
         $password = $_POST['password'];
 
         // makes sure the required fields are entered
@@ -37,7 +37,7 @@
 
                         /** USER CAN LOGIN */
 
-                        $_SESSION['userId'] = $record['name'];
+                        $_SESSION['name'] = $record['name'];
 
                         $success = true;
 
@@ -84,7 +84,7 @@
             </div>
             <!--links to other pages-->
             <ul class="menu-list">
-                <li><a href="../index.html"><i class="fa-solid fa-home"></i> Dashboard</a></li>
+                <li><a href="../index.php"><i class="fa-solid fa-home"></i> Dashboard</a></li>
                 <li class="highlight"><a href="login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
                 <li><a href="register.php"><i class="fa-solid fa-address-card"></i> Register</a></li>
                 <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a></li>
@@ -114,7 +114,7 @@
                     <option value="organization">organisation</option>
                     <option value="supervisor">supervisor</option>
                 </select>
-                <input type="text" name="userId" placeholder="ID number or name">
+                <input type="text" name="name" placeholder="ID number or name">
                 <input type="password" name="password" placeholder="password">
                 <br>
                 <input type="submit" name="login" value="login">
