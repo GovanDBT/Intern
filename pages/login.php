@@ -17,7 +17,7 @@
         $password = $_POST['password'];
 
         // makes sure the required fields are entered
-        if ($user != "" && $password != "" && $status = "organization"){
+        if ($user != "" && $password != "" && $status == "organization"){
             // selects and goes through all the organization names in the database
             $select = "SELECT * FROM Org_account WHERE name = '{$user}'";
             // query the database to see if the name already exists

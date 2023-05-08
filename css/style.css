@@ -3,7 +3,7 @@
     --dominant-color: #212a3e;
     --secondary-color: #394867;
     --accent-color: #a41c22;
-    --accent-hover: #1baa6c;
+    --accent-hover: #8b1f24;
     --black-color: #474747;
     --white-text: #fff;
     --white-text--hover: #d2d0db;
@@ -151,14 +151,23 @@ footer p {
     align-items: center;
 }
 
+/*Styles the catalog which contains all the cards*/
 .catalog {
     border-radius: 20px;
     background-color: #d2daeb;
-    width: 90%;
-    height: 85vh;
+    width: 70vw;
+    height: 100%;
     padding: 1.5rem;
+    margin: 0 -5px;
 }
 
+.catalog:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/*Styles the card catalogs title*/
 .catalog h1 {
     text-align: center;
     font-size: 3rem;
@@ -170,9 +179,11 @@ footer p {
 /*card containing internships*/
 .card {
     width: 280px;
+    margin: 8px 10px;
     background: #fff;
     border-radius: 40px;
     text-align: center;
+    float: left;
 }
 
 .card-header {
@@ -196,8 +207,7 @@ table, th, td {
     font-size: 1.4rem;
 }
 
-
-
+/*styles the cards button*/
 .card-body p {
     background: var(--accent-color);
     font-size: 2rem;
@@ -209,12 +219,95 @@ table, th, td {
     color: var(--white-text);
 }
 
-form {
-    font-size: 2rem;
+/*When mouse hovers over the button*/
+.card-body p:hover {
+    background: var(--accent-hover);
+    color: var(--white-text);
+    transition: all 0.2s ease;
 }
 
-.intern-btn {
-    font-size: 1.2rem;
-    background: var(--accent-color);
-    padding: 0.8rem 2rem;
+/*styles card when they reach a certain width*/
+@media screen and (max-width: 600px) {
+    .card {
+        display: block;
+        margin-bottom: 30px;
+    }
+}
+
+/*REGISTRATION FORMS*/
+
+.form {
+    width: 60vw;
+    font-size: 2rem;
+    transition: all 300ms ease-in-out 0ms;
+}
+
+textarea {
+    resize: none;
+}
+
+.form-btn {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2.2rem;
+    font-family: poppins;
+    font-weight: bold;
+    padding: 20px 0px 0px 0px;
+}
+
+.form-btn > div {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 300ms ease-in-out 0ms;
+}
+
+.form .form-btn > div.active {
+    background: var(--dominant-color);
+    color: var(--white-text);
+    transition: all 300ms ease-in-out 0ms;
+}
+
+.form-body {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.form .form-body > div {
+    position: absolute;
+    top: -150vh;
+    opacity: 0;
+    transition: opacity 300ms ease-in-out 0ms;
+}
+
+.form .form-body > div.active {
+    top: 0px;
+    opacity: 1;
+    transition: opacity 300ms ease-in-out 0ms;
+}
+
+.form-body .input {
+    border: none;
+    border-bottom: 2px solid #fff;
+    background: none;
+    color: var(--white-text);
+    padding: 0.5rem 1rem;
+    outline: 0;
+    margin: 0.9rem 1rem;
+}
+
+.input::placeholder {
+    color: var(--white-text);
+}
+
+.form-company {
+    background-color: var(--dominant-color);
+    padding: 1rem;
+}
+
+.form-student {
+    background-color: var(--dominant-color);
+    padding: 1rem;
 }

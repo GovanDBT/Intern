@@ -107,7 +107,7 @@
                     <tbody>
                         
                         <?php 
-                            // selects all the data from the internship table in the database
+                            //selects all the data from the internship table in the database
                             $query = "SELECT * FROM Internship WHERE company = '{$_SESSION['name']}'";
                             $select_intern = mysqli_query($connection, $query);
 
