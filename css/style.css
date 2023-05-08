@@ -236,12 +236,16 @@ table, th, td {
 
 /*REGISTRATION FORMS*/
 
+/*style the registration form*/
 .form {
     width: 60vw;
+    align-self: center;
     font-size: 2rem;
     transition: all 300ms ease-in-out 0ms;
+    margin: auto 10px;
 }
 
+/*prevents the text area from resizing*/
 textarea {
     resize: none;
 }
@@ -263,6 +267,14 @@ textarea {
     transition: all 300ms ease-in-out 0ms;
 }
 
+/*styles buttons above the registration form*/
+.form-company-btn {
+    border-radius: 20px 20px 0 0;
+}
+.form-student-btn {
+    border-radius: 20px 20px 0 0;
+}
+
 .form .form-btn > div.active {
     background: var(--dominant-color);
     color: var(--white-text);
@@ -272,7 +284,15 @@ textarea {
 .form-body {
     position: relative;
     overflow: hidden;
-    min-height: 100vh;
+    min-height: 90vh;
+}
+
+/*styles the forms headers*/
+.form-body h2 {
+    color: var(--white-text);
+    font-family: poppins;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .form .form-body > div {
@@ -288,7 +308,14 @@ textarea {
     transition: opacity 300ms ease-in-out 0ms;
 }
 
-.form-body .input {
+/*all forms with this class are styled to be aligned well*/
+.form-input {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*styles the registration input forms*/
+.input {
     border: none;
     border-bottom: 2px solid #fff;
     background: none;
@@ -296,18 +323,93 @@ textarea {
     padding: 0.5rem 1rem;
     outline: 0;
     margin: 0.9rem 1rem;
+    width: calc(100% / 2 - 30px);
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+}
+
+.select-form {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/*style the forms dropdown menu*/
+select {
+    height: 45px;
+    padding: 0.2rem 1rem;
+    border: none;
+    background: none;
+    border-bottom: 2px solid #fff;
+    color: var(--white-text);
+    outline: none;
+    text-align: left;
+}
+
+/*style the forms dropdown menu options*/
+select option {
+    background: var(--dominant-color);
 }
 
 .input::placeholder {
     color: var(--white-text);
+    opacity: 0.6;
 }
 
 .form-company {
     background-color: var(--dominant-color);
-    padding: 1rem;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 0 20px 20px 20px;
 }
 
 .form-student {
     background-color: var(--dominant-color);
-    padding: 1rem;
+    padding: 2rem;
+    border-radius: 20px 0 20px 20px;
+}
+
+.input-button {
+    outline: none;
+    padding: 1.4rem 3.7rem;
+    color: var(--white-text);
+    background: var(--accent-color);
+    border: none;
+    font-weight: bold;
+    font-family: poppins;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    margin: 10px auto;
+}
+
+.input-button:hover {
+    background: var(--accent-hover);
+}
+
+/*Styles the login form*/
+
+/*Login title*/
+.login-title{
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 3rem;
+    font-family: poppins;
+}
+
+/*login form*/
+.login-form {
+    background-color: var(--dominant-color);
+    padding: 30px;
+    font-size: 2rem;
+    border-radius: 20px;
+}
+
+/*login inputs*/
+.login-input {
+    display: block;
+    width: 100%;
+    margin: 30px auto;
 }

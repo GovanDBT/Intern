@@ -55,6 +55,45 @@
         }
         else
             $error_msg = "Please fill out all the required fields!";
+        
+        if ($user != "" && $password != "" && $status == "student"){
+            // selects and goes through all the organization names in the database
+            $select = "SELECT * FROM Student_account WHERE student_Id = '{$user}'";
+            // query the database to see if the name already exists
+            $query = mysqli_query($connection, $select);
+            if(mysqli_num_rows($query) == 1){
+                // gets the records from the query
+                $record = mysqli_fetch_assoc($query);
+
+                // compares the passwords to make sure they match
+                if($password === $record['password']){
+                    // makes sure the user has activated their account
+                    if($record['account_status'] == 1){
+                        // update the last_login tracker
+                        $last_login = time();
+                        $update = "UPDATE Student_account SET last_login ='{$last_login}'";
+                        $query = mysqli_query($connection, $update);
+
+                        /** USER CAN LOGIN */
+
+                        $_SESSION['stdId'] = $record['student_Id'];
+
+                        $success = true;
+
+                        // redirects user to the home page
+                        header("Location: std.php");
+                    }
+                    else
+                        $error_msg = "Please activate your account before you Login!";
+                }
+                else
+                    $error_msg = "Your password is incorrect.";
+            }
+            else
+                $error_msg = "Account does not exist! Try registering.";
+        }
+        else
+            $error_msg = "Please fill out all the required fields!";
     }
 
 ?>
@@ -108,16 +147,17 @@
 
         <!--Main content of the page-->
         <div class="main-content">
-            <form action="login.php" method="post">
+            <h2 class="login-title">Welcome Back</h2>
+            <form class="login-form" action="login.php" method="post">
                 <select name="status">
                     <option value="student">student</option>
                     <option value="organization">organisation</option>
                     <option value="supervisor">supervisor</option>
                 </select>
-                <input type="text" name="name" placeholder="ID number or name">
-                <input type="password" name="password" placeholder="password">
+                <input class="input login-input" type="text" name="name" placeholder="ID number or name">
+                <input class="input login-input" type="password" name="password" placeholder="password">
                 <br>
-                <input type="submit" name="login" value="login">
+                <input class="input-button" type="submit" name="login" value="login">
             </form>
         </div>
     </div>

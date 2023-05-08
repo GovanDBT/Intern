@@ -85,7 +85,7 @@
                                 $success = true;
 
                                 // redirects user to the home page
-                                header("Location: org.php");
+                                header("Location: login.php");
 
                             }
                             else
@@ -106,7 +106,8 @@
         else
             $error_msg = "Please fill out all the required fields!";
     }
-
+?>
+<?php
     /** REGISTRATION FORM FOR STUDENTS*/
     $stdId = "";
     $stdName = "";
@@ -118,14 +119,14 @@
     if(isset($_POST['stdRegister'])){
         // gets all the data from the form
         $stdId = $_POST['stdId'];
-        $stdId = $_POST['stdStatus'];
-        $stdId = $_POST['preference'];
+        $stdStatus = $_POST['stdStatus'];
+        $stdPrefer = $_POST['preference'];
         $stdName = $_POST['stdName'];
         $stdCourse = $_POST['stdCourse'];
         $stdCity = $_POST['stdCity'];
         $stdYear = $_POST['stdYear'];
-        $password = $_POST['stdPass'];
-        $confirm_password = $_POST['stdConPass'];
+        $stdPass = $_POST['stdPass'];
+        $stdConPass = $_POST['stdConPass'];
 
         // cleans the code from SQL statements and attacks from Hackers (SQL Injection)
         $stdId = mysqli_real_escape_string($connection, $stdId);
@@ -135,11 +136,11 @@
         $stdYear = mysqli_real_escape_string($connection, $stdYear);
 
         // makes sure all the required fields are entered
-        if($status == "student" && $stdId != "" && $stdName != "" && $stdCourse != "" && $password != "" && $confirm_password != "" && $stdCity != "" && $stdYear != ""){
+        if($stdStatus == "student" && $stdId != "" && $stdName != "" && $stdCourse != "" && $stdPass != "" && $stdConPass != "" && $stdCity != "" && $stdYear != ""){
             // makes sure the two passwords match
-            if($password === $confirm_password){
+            if($stdPass === $stdConPass){
                 // makes sure the passwords meet the min length and  strength requirement
-                if(strlen($password) >= 5 && strpbrk($password, "! # $ . , : ; ( )" != false)){
+                if(strlen($stdPass) >= 5 && strpbrk($stdPass, "! # $ . , : ; ( )" != false)){
                     // selects and goes through all the names in the database 
                     $select1 = "SELECT * FROM Student WHERE student_Id = '{$stdId}'";
                     //  query the database to see if the name is there
@@ -153,37 +154,37 @@
 
                         if(mysqli_num_rows($query) == 0){
                             // create and format some variable for the database
-                            $select_supervisor = "SELECT supervisorId FROM Supervisor ORDER BY RAND() LIMIT 1";
-                            $supervisor = mysqli_query($connection, $select);
+                            $select2 = "SELECT supervisorId FROM Supervisor ORDER BY RAND() LIMIT 1";
+                            $query3 = mysqli_query($connection, $select2);
+                            $record = mysqli_fetch_assoc($query3);
+                            $supervisor = $record['supervisorId'];
                             $date_created = time(); // track the date the account was created
                             $last_login = 0; // track our users login
                             $account_status = 1; // lets our users login (1 = active account)
 
                             // insert the user into the database
-                            $insert = "INSERT INTO Student_account VALUES ('{$stdId}','{$password}','{$city}','{$supervisor}','{$address}','{$email}','{$country}','{$phone}','{$status}','{$last_login}','{$account_status}','{$date_created}','{$about}')";
+                            $insert = "INSERT INTO Student_account(student_Id, password, full_Name, city, year, status, supervisor, preference, course, last_login, account_status, date_created) VALUES ('{$stdId}','{$stdPass}','{$stdName}','{$stdCity}','{$stdYear}','{$stdStatus}','{$supervisor}','{$stdPrefer}','{$stdCourse}','{$last_login}','{$account_status}','{$date_created}')";
                             // query the database insert data into the database
-                            $query = mysqli_query($connection, $insert);
-
-                            // verifies if the user's account was created
-                            $query = mysqli_query($connection, $select);
-                            if(mysqli_num_rows($query) == 1){
+                            $query2 = mysqli_query($connection, $insert);
+                            $query4 = mysqli_query($connection, $select);
+                            if(mysqli_num_rows($query4) == 1){
 
                                 /** USER CAN REGISTER */
 
                                 $success = true;
 
                                 // redirects user to the home page
-                                header("Location: std.php");
+                                header("Location: login.php");
 
                             }
                             else
                                 $error_msg = "An error occurred and your account was not created :(";
                         }
                         else
-                            $error_msg = "The company name <i>".$name."</i> already exist has a similar account.";
+                            $error_msg = "The Student ID <i>".$stdId."</i> already exist has a similar account.";
                     }
                     else
-                        $error_msg = "The name <i>".$name."</i> does not exist. Please contact administrator"; 
+                        $error_msg = "The Student ID <i>".$stdId."</i> does not exist. Please contact administrator"; 
                 }
                 else
                     $error_msg = "Your password should longer than five characters and should contain special characters, Eg !#$.,:;";
@@ -192,7 +193,7 @@
                 $error_msg = "Your passwords do not match, please try again";
         }
         else
-            $error_msg = "Please fill out all the required fields!";
+            $error_msg = "Please fill out all the required fields! student";
     }
 ?>
 
@@ -246,48 +247,45 @@
         <!--Main content of the page-->
         <div class="main-content">
             <?php 
-                // checks if the user has successfully created an account
-                if (isset($success) && $success == true){
-                    // redirects user to the home page
-                    header("Location: org.php");
-                }
                 // checks to see if the error message is set, if so display if
-                else if (isset($error_msg))
+                if (isset($error_msg))
                     echo "<p style='color:red; text-align:center; font-weight:bold;'>".$error_msg."</p>";
                 else
                     echo ""; // do nothing
             ?>
             <div class="form">
                 <div class="form-btn">
-                    <div class="active">Company</div>
-                    <div>Student</div>
+                    <div class="form-company-btn active">Company</div>
+                    <div class="form-student-btn">Student</div>
                 </div>
                 <div class="form-body">
                     <div class="form-company active">
                         <h2>Register as an Organization</h2>
-                        <form action="register.php" method="post">
-                        <select name="status">
-                            <option value="student">student</option>
-                            <option selected value="organisation">organisation</option>
-                            <option value="supervisor">supervisor</option>
-                        </select>
-                        <input class="input" type="text" name="name" placeholder="company name" value="<?php echo $name; ?>">
-                        <input class="input" type="text" name="username" placeholder="supervisor" value="<?php echo $supervisor; ?>">
-                        <input class="input" type="text" name="city" placeholder="city" value="<?php echo $city; ?>">
-                        <input class="input" type="email" name="email" placeholder="Email" value="<?php echo $email; ?>">
-                        <input class="input" type="text" name="address" placeholder="address" value="<?php echo $address; ?>">
-                        <input class="input" type="number" name="phone" placeholder="Phone number" pattern="[0-9]{6,8}" value="<?php echo $phone; ?>">
-                        <input class="input" type="text" name="country" placeholder="country" value="<?php echo $country; ?>">
-                        <textarea class="input" id="story" name="about" rows="5" cols="33" placeholder="about company..." value="<?php echo $about; ?>"></textarea>
-                        <input class="input" type="password" name="password" placeholder="password">
-                        <input class="input" type="password" name="confirm-password" placeholder="confirm password">
-                        <br>
-                        <input class="input-button" type="submit" name="register" value="Register">
+                        <form class="select-form" action="register.php" method="post">
+                            <select name="status">
+                                <option value="student">student</option>
+                                <option selected value="organisation">organisation</option>
+                                <option value="supervisor">supervisor</option>
+                            </select>
+                        </form>
+                        <form class="form-input" action="register.php" method="post">
+                            <input class="input" type="text" name="name" placeholder="company name" value="<?php echo $name; ?>">
+                            <input class="input" type="text" name="username" placeholder="supervisor" value="<?php echo $supervisor; ?>">
+                            <input class="input" type="text" name="city" placeholder="city" value="<?php echo $city; ?>">
+                            <input class="input" type="email" name="email" placeholder="Email" value="<?php echo $email; ?>">
+                            <input class="input" type="text" name="address" placeholder="address" value="<?php echo $address; ?>">
+                            <input class="input" type="number" name="phone" placeholder="Phone number" pattern="[0-9]{6,8}" value="<?php echo $phone; ?>">
+                            <input class="input" type="text" name="country" placeholder="country" value="<?php echo $country; ?>">
+                            <textarea class="input" id="story" name="about" rows="3" placeholder="about company..." value="<?php echo $about; ?>"></textarea>
+                            <input class="input" type="password" name="password" placeholder="password">
+                            <input class="input" type="password" name="confirm-password" placeholder="confirm password">
+                            <br>
+                            <input class="input-button" type="submit" name="register" value="Register">
+                        </form>
                     </div>
                     <div class="form-student">
-                        </form>
                         <h2>Register as a Students</h2>
-                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                        <form action="register.php" method="post">
                             <select name="stdStatus">
                                 <option selected value="student">student</option>
                                 <option value="organisation">organisation</option>
@@ -301,15 +299,15 @@
                                 <option value="designer">UI Designer</option>
                                 <option value="analyst">Data analyst</option>
                             </select>
-                            <input type="text" class="input" name="stdId" placeholder="StudentID" value="<?php echo $stdId; ?>">
+                            <input type="number" class="input" name="stdId" placeholder="StudentID" value="<?php echo $stdId; ?>">
                             <input type="text" class="input" name="stdName" placeholder="fullname" value="<?php echo $stdName; ?>">
                             <input type="text" class="input" name="stdCourse" placeholder="Course" value="<?php echo $stdCourse; ?>">
                             <input type="text" class="input" name="stdCity" placeholder="City" value="<?php echo $stdCity; ?>">
-                            <input type="text" class="input" name="stdYear" placeholder="Year 1,2" value="<?php echo $stdYear; ?>">
+                            <input type="number" class="input" name="stdYear" placeholder="Year 1,2" value="<?php echo $stdYear; ?>">
                             <input type="password" class="input" name="stdPass" placeholder="password">
                             <input type="password" class="input" name="stdConPass" placeholder="confirm password">
                             <br>
-                            <input type="submit" name="stdRegister" value="Register">
+                            <input class="input-button" type="submit" name="stdRegister" value="Register">
                         </form>
                     </div>
                 </div>
