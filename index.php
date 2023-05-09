@@ -88,7 +88,7 @@
                                 echo "<h3>$company</h3>";
                                 echo "</div>";
                                 echo "<div class='card-body'>";
-                                echo "<table>";
+                                echo "<table class='table'>";
                                 echo "<tr>";
                                 echo "<th>Position</th>";
                                 echo "<td>$position</td>";

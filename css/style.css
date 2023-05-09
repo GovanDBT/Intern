@@ -148,7 +148,6 @@ footer p {
     margin-left: 20vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 /*Styles the catalog which contains all the cards*/
@@ -158,7 +157,7 @@ footer p {
     width: 70vw;
     height: 100%;
     padding: 1.5rem;
-    margin: 0 -5px;
+    margin: 1px auto;
 }
 
 .catalog:after {
@@ -173,7 +172,27 @@ footer p {
     font-size: 3rem;
     color: var(--accent-color);
     font-family: poppins;
-    margin-top: 0;
+    margin: auto 1px;
+}
+
+.catalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.catalog-header p {
+    background-color: var(--accent-color);
+    padding: 0.5rem 1.4rem;
+    border: none;
+    color: var(--white-text);
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: 1px auto;
+}
+
+.catalog-header p:hover {
+    background-color: var(--accent-hover);
 }
 
 /*card containing internships*/
@@ -199,7 +218,23 @@ footer p {
 }
 
 /*styles the internships table*/
-table, th, td {
+.table {
+    border: 1px solid var(--dominant-color);
+    border-collapse: collapse;
+    padding: 1rem;
+    margin: 1rem auto;
+    font-size: 1.4rem;
+}
+
+.table td {
+    border: 1px solid var(--dominant-color);
+    border-collapse: collapse;
+    padding: 1rem;
+    margin: 1rem auto;
+    font-size: 1.4rem;
+}
+
+.table th {
     border: 1px solid var(--dominant-color);
     border-collapse: collapse;
     padding: 1rem;
@@ -412,4 +447,61 @@ select option {
     display: block;
     width: 100%;
     margin: 30px auto;
+}
+
+/*login navbar*/
+.nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Username {
+    font-weight: bold;
+    font-size: 3rem;
+    color: var(--accent-color);
+    font-family: poppins;
+    margin-top: 0;
+}
+
+.nav p {
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: 600;
+    margin-top: 0;
+    margin-right: 20px;
+    color: var(--dominant-color);
+}
+
+/*Tables*/
+.table-content{
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1.2rem;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+.table-content thead tr {
+    background-color: var(--accent-color);
+    color: var(--white-text);
+    text-align: left;
+}
+
+.table-content th,
+.table-content td {
+    padding: 12px 15px;
+}
+
+.table-content tbody tr {
+    border-bottom: 1px solid var(--accent-hover);
+}
+
+.table-content tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.table-content tbody tr:last-of-type {
+    border-bottom: 2px solid var(--accent-color);
 }
