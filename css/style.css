@@ -173,6 +173,7 @@ footer p {
     color: var(--accent-color);
     font-family: poppins;
     margin: auto 1px;
+    margin-bottom: 1rem;
 }
 
 .catalog-header {
@@ -435,11 +436,16 @@ select option {
 }
 
 /*login form*/
+.login{
+    text-align: center;
+}
+
 .login-form {
     background-color: var(--dominant-color);
     padding: 30px;
     font-size: 2rem;
     border-radius: 20px;
+    width: 40vw;
 }
 
 /*login inputs*/
@@ -504,4 +510,45 @@ select option {
 
 .table-content tbody tr:last-of-type {
     border-bottom: 2px solid var(--accent-color);
+}
+
+/*Organization Account Details*/
+.account-body {
+    width: 60vw;
+    height: 60vh;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #d2d0db;
+    margin: 1px auto;
+    padding: 2rem;
+    border-radius: 20px;
+    border-bottom: 3px solid var(--accent-color);
+}
+.account-detail {
+    font-size: 1.3rem;
+    font-family: poppins;
+    margin: 3rem;
+}
+
+
+.accountTxt {
+    color: var(--accent-color);
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+
+.errors {
+    font-size: 1.6rem;
+    font-family: poppins;
+    font-weight: bold;
+    color: red;
+    text-align: center;
+}
+
+.success {
+    font-size: 1.6rem;
+    font-family: poppins;
+    font-weight: bold;
+    color: green;
+    text-align: center;
 }

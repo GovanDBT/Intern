@@ -3,6 +3,7 @@
 // includes out connect.php script
     require_once("connect.php");
     session_start();
+    
     /** LOGIN FORM */
     // checks to see if the user clicked the login button
     if(isset($_POST['login'])){

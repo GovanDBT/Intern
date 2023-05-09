@@ -45,6 +45,7 @@
                 // query the database insert data into the database
                 $query = mysqli_query($connection, $insert);
                 $success = true;
+                $success_msg = "Application successful 👍";
             }else
                 $error_msg = "Login to submit application";
         }
@@ -60,7 +61,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internships</title>
-    <link rel="icon" type="x-icon" href="images/UBotswana.png">
+    <link rel="icon" type="x-icon" href="../images/UBotswana.png">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../ss/normalize.css">
 
@@ -79,7 +80,7 @@
             <ul class="menu-list">
                 <li><a href="org.php"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="orgAccount.php"><i class="fas fa-user"></i> My account</a></li>
-                <li><a href="#"><i class="fas fa-bell"></i> Notification</a></li>
+                <li><a href="#"><i class="fas fa-bell"></i> Participants</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
                 <li><a href="logout.php"><i class="fas fa-arrow-left"></i> Logout</a></li>
             </ul>
@@ -101,39 +102,40 @@
 
         <!--Main content of the page-->
         <div class="main-content">
-            <h2 class="search">Search</h2>
-            <?php 
-                // display the user aware navigation links
-                if($LOGGED_IN == true){
-                    
-                    //get the users account information from the database
-                    $select = "SELECT * FROM Org_account WHERE name = '{$_SESSION['name']}'";
-                    $query = mysqli_query($connection, $select);
-
-                    if(mysqli_num_rows($query) == 1){
-                        $_USER = mysqli_fetch_assoc($query);
-                        
-                        echo '<h3>Hello <i class="fa-solid fa-skull"></i></h3><h2 style="color:#17c141;">'.$_USER['name'].'</h2><h3>You are now logged in.</h3> <br/><br/>';
-
-                        echo "Your account was created on: <u>".date("M d, Y", $_USER['date_created'])."</u><br/><br/>";
-                        echo "You logged in at <i>".date("g:i A (t)", $_USER['last_login'])."</i> on <i>".date("M d, Y", $_USER['last_login'])."</i><br/>";
+            <div class="nav">
+                <h2 class="search">Search</h2>
+                <?php
+                    // display the user aware navigation links
+                    if($LOGGED_IN == true){
+                
+                        //get the users account information from the database
+                        $select = "SELECT * FROM Org_account WHERE name = '{$_SESSION['name']}'";
+                        $query = mysqli_query($connection, $select);
+                        if(mysqli_num_rows($query) == 1){
+                            $_USER = mysqli_fetch_assoc($query);
+                            echo '<h2 class="Username">'.$_USER['name'].'</h2>';
+                            echo '<p class="log">login time: '.date("g:i A ", $_USER['last_login']).'</p>';
+                        }
+                        else{
+                            echo "Unable to load your account information. Please logout and login back in";
+                        }
                     }
                     else{
-                        echo "Unable to load your account information. Please logout and login back in";
+                        echo "<h3>Login to your account to view your account information</h3>";
                     }
-                }
-                else{
-                    echo "<h3>Login to your account to view your account information</h3><br/>";
-                }
-                    
-
-            ?>
-            <h1>Internships</h1>
+                
+                ?>
+            </div>
             <div class="catalog">
+                <div class="catalog-header">
+                    <a href="org.php"><p>Go Back</p></a>
+                    <h1>Apply Internships</h1>
+                </div>
+
                 <?php 
                     // checks if the user has successfully created an account
-                    if (isset($success) && $success == true){
-                        echo "<p style='color:green; text-align:center; font-weight:bold;'>Application sent 👍</p>";
+                    if(isset($success_msg)){
+                        echo "<p class='success'>".$success_msg."</p>";
                     }
                     // checks to see if the error message is set, if so display if
                     else if (isset($error_msg))
@@ -142,16 +144,16 @@
                         echo "";// do nothing
                 ?>
                 <form action="internships.php" method="post">
-                <input type="text" name="position" placeholder="Position">
-                <input type="text" name="location" placeholder="Location">
-                <input type="text" name="duration" placeholder="Duration">
-                <input type="number" name="stipend" placeholder="Stipend">
-                <input type="text" name="due_date" placeholder="Closes on">
-                <textarea id="story" name="about" rows="5" cols="33" placeholder="about position..."></textarea>
-                <input type="number" name="avail_pos" placeholder="Available Positions">
-                <br>
-                <input type="submit" name="submit" value="Post">
-            </form>
+                    <input type="text" name="position" placeholder="Position">
+                    <input type="text" name="location" placeholder="Location">
+                    <input type="text" name="duration" placeholder="Duration">
+                    <input type="number" name="stipend" placeholder="Stipend">
+                    <input type="text" name="due_date" placeholder="Closes on">
+                    <textarea id="story" name="about" rows="5" cols="33" placeholder="about position..."></textarea>
+                    <input type="number" name="avail_pos" placeholder="Available Positions">
+                    <br>
+                    <input type="submit" name="submit" value="Post">
+                </form>
             </div>
         </div>
     </div>

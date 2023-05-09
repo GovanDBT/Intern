@@ -37,7 +37,7 @@
             <ul class="menu-list">
                 <li class="highlight"><a href="org.php"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="orgAccount.php"><i class="fas fa-user"></i> My account</a></li>
-                <li><a href="#"><i class="fas fa-bell"></i> Notification</a></li>
+                <li><a href="#"><i class="fas fa-bell"></i> Participants</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
                 <li><a href="logout.php"><i class="fas fa-arrow-left"></i> Logout</a></li>
             </ul>

@@ -18,7 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student</title>
-    <link rel="icon" type="x-icon" href="images/UBotswana.png">
+    <link rel="icon" type="x-icon" href="../images/UBotswana.png">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../ss/normalize.css">
 
@@ -36,8 +36,8 @@
             <!--links to other pages-->
             <ul class="menu-list">
                 <li class="highlight"><a href="org.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="orgAccount.php"><i class="fas fa-user"></i> My account</a></li>
-                <li><a href="#"><i class="fas fa-bell"></i> Notification</a></li>
+                <li><a href="stdAccount.php"><i class="fas fa-user"></i> My account</a></li>
+                <li><a href="report.php"><i class="fas fa-bell"></i> Report</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
                 <li><a href="logout.php"><i class="fas fa-arrow-left"></i> Logout</a></li>
             </ul>
@@ -59,36 +59,109 @@
 
         <!--Main content of the page-->
         <div class="main-content">
-            <h2 class="search">Search</h2>
-            <?php 
-                // display the user aware navigation links
-                if($LOGGED_IN == true){
-                    
-                    //get the users account information from the database
-                    $select = "SELECT * FROM Student_account WHERE student_Id = '{$_SESSION['stdId']}'";
-                    $query = mysqli_query($connection, $select);
-
-                    if(mysqli_num_rows($query) == 1){
-                        $_USER = mysqli_fetch_assoc($query);
-                        
-                        echo '<h3>Hello <i class="fa-solid fa-skull"></i></h3><h2 style="color:#17c141;">'.$_USER['full_Name'].'</h2><h3>You are now logged in.</h3> <br/><br/>';
-
-                        echo "Your account was created on: <u>".date("M d, Y", $_USER['date_created'])."</u><br/><br/>";
-                        echo "You logged in at <i>".date("g:i A (t)", $_USER['last_login'])."</i> on <i>".date("M d, Y", $_USER['last_login'])."</i><br/>";
+            <div class="nav">
+                <h2 class="search">Search</h2>
+                <?php
+                    // display the user aware navigation links
+                    if($LOGGED_IN == true){
+                
+                        //get the users account information from the database
+                        $select = "SELECT * FROM Student_account WHERE student_Id = '{$_SESSION['stdId']}'";
+                        $query = mysqli_query($connection, $select);
+                        if(mysqli_num_rows($query) == 1){
+                            $_USER = mysqli_fetch_assoc($query);
+                            echo '<h2 class="Username">'.$_USER['full_Name'].'</h2>';
+                            echo '<p class="log">'.$_USER['student_Id'].'</p>';
+                        }
+                        else{
+                            echo "Unable to load your account information. Please logout and login back in";
+                        }
                     }
                     else{
-                        echo "Unable to load your account information. Please logout and login back in";
+                        echo "<h3>Login to your account to view your account information</h3>";
                     }
-                }
-                else{
-                    echo "<h3>Login to your account to view your account information</h3><br/>";
-                }
-                    
-
-            ?>
+                
+                ?>
+            </div>
             <div class="catalog">
-                <a href="internships.php"><p class="intern-btn">Apply Internships</p></a>
-                <h1>Internships</h1>
+                <h1>Available Internships</h1>
+                <!-- <div class="intern1 card"> -->
+                    <!-- <div class="card-header"> -->
+                        <?php 
+                            // // selects all the data from the internship table in the database
+                            // $query = "SELECT * FROM Internship";
+                            // $select = mysqli_query($connection, $query);
+
+                            // while($row = mysqli_fetch_assoc($select)) {
+                            //     $company = $row['company'];
+                            //     echo "<h3>$company</h3>";
+
+                            // }
+                        ?>
+                    <!-- </div> -->
+                    <!-- <div class="card-body"> -->
+                        <!-- <table> -->
+                            <?php 
+                            // selects all the data from the internship table in the database
+                            $query = "SELECT * FROM Internship";
+                            $select = mysqli_query($connection, $query);
+
+                            while($row = mysqli_fetch_assoc($select)) {
+                                $company = $row['company'];
+                                $position = $row['position'];
+                                $avail_pos = $row['available_position'];
+                                $loc = $row['location'];
+                                $duration = $row['duration'];
+                                $stipend = $row['stipend'];
+                                $due = $row['due_date'];
+
+                                echo "<div class='card'>";
+                                echo "<div class='card-header'>";
+                                echo "<h3>$company</h3>";
+                                echo "</div>";
+                                echo "<div class='card-body'>";
+                                echo "<table class='table'>";
+                                echo "<tr>";
+                                echo "<th>Position</th>";
+                                echo "<td>$position</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<th>Location</th>";
+                                echo "<td>$loc</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<th>Duration</th>";
+                                echo "<td>$duration</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<th>Stipend</th>";
+                                echo "<td>$stipend</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<th>Closes On</th>";
+                                echo "<td>$due</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<th>Available Position</th>";
+                                echo "<td>$avail_pos</td>";
+                                echo "</tr>";
+                                echo "</table>";
+                                echo "<a href=''><p>Apply</p></a>";
+                                echo "</div>";
+                                
+                                echo "</div>";
+                    
+                            }
+                        ?>
+                        <!-- </table> -->
+                        <!-- <a href=""><p>View More</p></a> -->
+                    <!-- </div> -->
+                <!-- </div> -->
             </div>
         </div>
     </div>
